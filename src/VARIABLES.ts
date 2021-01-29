@@ -1,0 +1,19 @@
+declare const NAME: any;
+declare const VERSION: any;
+declare const LOCAL_ENV: any;
+declare const SERVER_ENV: any;
+declare const DEVELOP_ENVIRONMENT: any;
+declare const STAGING_ENVIRONMENT: any;
+declare const PRODUCTION_ENVIRONMENT: any;
+
+export const VARIABLES = {
+    'NAME': NAME,
+    'VERSION': VERSION,
+    'LOCAL_ENV': !!LOCAL_ENV,
+    'SERVER_ENV': !!SERVER_ENV,
+    'DEVELOP_ENVIRONMENT': !!DEVELOP_ENVIRONMENT,
+    'STAGING_ENVIRONMENT': !!STAGING_ENVIRONMENT,
+    'PRODUCTION_ENVIRONMENT': !!PRODUCTION_ENVIRONMENT,
+};
+
+console.info('ENVIRONMENT VARIABLES:', VARIABLES);
