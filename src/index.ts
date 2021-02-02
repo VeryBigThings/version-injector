@@ -1,1 +1,1 @@
-export * from './VersionViewer';
+export * from './VersionInjector';
