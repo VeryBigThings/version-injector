@@ -18,7 +18,7 @@ class VersionInjectorPlugin {
     }
 
     apply(compiler) {
-        const packageJSON = require(path.join(compiler.options.output.path, 'package.json'));
+        const packageJSON = require(path.join(compiler.options.context, 'package.json'));
         this.version = packageJSON.version;
 
         compiler.hooks.compilation.tap('VersionInjectorPlugin', (compilation) => {
