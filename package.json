@@ -1,6 +1,6 @@
 {
   "name": "@verybigthings/version-injector",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Injects version to html page",
   "main": "index.js",
   "directories": {
