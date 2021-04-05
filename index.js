@@ -1,10 +1,26 @@
+const path = require('path');
+const fs = require('fs');
+
 
 class VersionInjectorPlugin {
-    constructor(version = '0.0.1') {
-        this.version = version;
+    constructor(className = 'version-panel') {
+        this.className = className;
+
+        if (this.className === 'version-panel') {
+            fs.readFile(path.join(__dirname, 'styles.css'), 'utf8', (err, data) => {
+                if (err) {
+                    return console.log(err);
+                }
+
+                this.styles = `<style>${data}</style>`;
+            });
+        }
     }
 
     apply(compiler) {
+        const packageJSON = require(path.join(compiler.options.output.path, 'package.json'));
+        this.version = packageJSON.version;
+
         compiler.hooks.compilation.tap('VersionInjectorPlugin', (compilation) => {
             compilation.hooks.htmlWebpackPluginAfterHtmlProcessing.tapAsync(
                 'ReactRootPlugin',
@@ -16,7 +32,9 @@ class VersionInjectorPlugin {
 
                     const returnData = {
                         html: `${firstHalf}
-                                    <div style=" position: absolute; right: 5px; bottom: 2px; opacity: 0.1; font-size: 12px; color: #222222; transition: opacity 0.15s ease-in-out; user-select: none;">
+                                    ${this.styles || ''}
+
+                                    <div class="${this.className}">
                                         ${this.version}
                                     </div>
                                ${secondHalf}`,
