@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 class VersionInjectorPlugin {
     constructor(className = 'version-panel') {
@@ -22,7 +23,7 @@ class VersionInjectorPlugin {
         this.version = packageJSON.version;
 
         compiler.hooks.compilation.tap('VersionInjectorPlugin', (compilation) => {
-            compilation.hooks.htmlWebpackPluginAfterHtmlProcessing.tapAsync(
+            HtmlWebpackPlugin.getHooks(compilation).beforeEmit.tapAsync(
                 'ReactRootPlugin',
                 (data, cb) => {
                     const htmlString = data.html;
